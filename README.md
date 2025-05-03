@@ -4,6 +4,10 @@
 
 A React-based application that fetches and displays launch data from the [SpaceX API](https://github.com/r-spacex/SpaceX-API), featuring authentication, enriched detail views, and deep linking. Built with Mantine UI, React Query, Zustand, and React Router.
 
+## 🌐 Live Demo
+
+👉 [https://spacecraze.netlify.app/](https://spacecraze.netlify.app/)
+
 ## ✨ Features
 
 - 🔐 **Authentication**
