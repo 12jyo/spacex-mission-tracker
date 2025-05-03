@@ -1,0 +1,15 @@
+.launchlist-container {
+    padding-top: 2rem;
+  }
+  
+  .launchlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .launchlist-search {
+    margin-bottom: 1rem;
+  }
+  
