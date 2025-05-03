@@ -9,16 +9,25 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={<Landing />} />
+      <Route
+        path="/login"
+        element={
+          isAuthenticated ? <Navigate to="/launches" replace /> : <Landing />
+        }
+      />
       <Route
         path="/launches"
-        element={isAuthenticated ? <LaunchList /> : <Navigate to="/login" />}
+        element={
+          isAuthenticated ? <LaunchList /> : <Navigate to="/login" replace />
+        }
       />
       <Route
         path="/launch/:id"
-        element={isAuthenticated ? <LaunchDetail /> : <Navigate to="/login" />}
+        element={
+          isAuthenticated ? <LaunchDetail /> : <Navigate to="/login" replace />
+        }
       />
-      <Route path="*" element={<Navigate to="/launches" />} />
+      <Route path="*" element={<Navigate to="/launches" replace />} />
     </Routes>
   );
 }
