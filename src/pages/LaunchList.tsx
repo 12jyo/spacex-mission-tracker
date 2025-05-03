@@ -31,7 +31,7 @@ export default function LaunchList() {
 
   return (
     <Container>
-      <Group position="apart" mb="md">
+      <Group position="apart" mb="md" className='launchlist-header'>
         <Title order={2}>SpaceX Launches</Title>
         <Button onClick={handleLogout} color="red">
           Logout
@@ -42,6 +42,7 @@ export default function LaunchList() {
         value={search}
         onChange={(e) => setSearch(e.currentTarget.value)}
         mb="md"
+        className='launchlist-search'
       />
       <Table striped highlightOnHover>
         <thead>
