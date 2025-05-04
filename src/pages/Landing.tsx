@@ -1,82 +1,61 @@
-import { useState } from 'react';
-import { Button, Container, TextInput, Title } from '@mantine/core';
+import { Button, Card, Container, PasswordInput, TextInput, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '@mantine/form';
 import { useAuth } from '../store/auth';
-import '../styles/Landing.scss';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Landing() {
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
 
-  const validatePassword = (password: any) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasDigits = /\d/.test(password);
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-    if (password.length < minLength) {
-      return 'Password must be at least 8 characters long';
+  const handleLogin = async () => {
+    try {
+      setError('');
+      await login(form.values.email, form.values.password);
+      navigate('/launches');
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
     }
-
-    if (!hasUpperCase || !hasLowerCase || !hasDigits) {
-      return 'Password must contain at least one uppercase letter, one lowercase letter, and one digit';
-    }
-
-    return '';
-  };
-
-  const handleLogin = () => {
-    setPasswordError('');
-    if (!username.trim()) {
-      setError('Username is required');
-      return;
-    }
-
-    const passwordValidationError = validatePassword(password);
-    if (passwordValidationError) {
-      setPasswordError(passwordValidationError);
-      return;
-    }
-
-    if (!password.trim()) {
-      setError('Password is required');
-      return;
-    }
-
-    setError('');
-    login();
-    navigate('/launches');
   };
 
   return (
-    <Container className="login-container">
-      <Title align="center" mb="lg">Login</Title>
-
-      <TextInput
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.currentTarget.value)}
-        error={error && !username.trim() ? 'Required' : false}
-        mb="sm"
-      />
-
-      <TextInput
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.currentTarget.value)}
-        error={passwordError || (error && !password.trim() ? 'Required' : false)}
-        mb="sm"
-      />
-
-      <Button onClick={handleLogin} fullWidth>
-        Login
-      </Button>
+    <Container size="xs" mt="xl">
+      <Card shadow="sm" padding="lg" radius="md" withBorder>
+        <Title order={2} mb="md" align="center">
+          Login
+        </Title>
+        <form onSubmit={form.onSubmit(handleLogin)}>
+          <TextInput
+            label="Email"
+            placeholder="email@example.com"
+            {...form.getInputProps('email')}
+            required
+          />
+          <PasswordInput
+            label="Password"
+            placeholder="Your password"
+            mt="md"
+            {...form.getInputProps('password')}
+            required
+          />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <Button fullWidth mt="xl" type="submit">
+            Login
+          </Button>
+        </form>
+        <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+      </Card>
     </Container>
   );
 }
