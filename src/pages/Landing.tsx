@@ -22,8 +22,22 @@ export default function Landing() {
       setError('');
       await login(form.values.email, form.values.password);
       navigate('/launches');
-    } catch (err) {
-      setError('Login failed. Please check your credentials.');
+    } catch (err: any) {
+      console.error(err);
+      const errorCode = err.code || '';
+      switch (errorCode) {
+        case 'auth/user-not-found':
+          setError('No user found with this email.');
+          break;
+        case 'auth/wrong-password':
+          setError('Incorrect password. Please try again.');
+          break;
+        case 'auth/invalid-email':
+          setError('Please enter a valid email address.');
+          break;
+        default:
+          setError('Login failed. Please check your credentials.');
+      }
     }
   };
 

@@ -2,11 +2,34 @@
     padding-top: 2rem;
   }
   
-  .launchlist-header {
-    padding-top: 21px;
-  }
-  
   .launchlist-search {
     margin-bottom: 1rem;
   }
   
+  .launchlist-header {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .launchlist-table{
+    max-height: 200px;
+  }
+
+  .launch-table th,
+  .launch-table td {
+    text-align: left;
+    padding: 0.75rem;
+  }
+  
+  .launch-table a {
+    color: #1c7ed6;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .launch-table a:hover {
+    text-decoration: underline;
+  }
+  
+  .launchlist-footer{
+    justify-content: space-between;
+  }
