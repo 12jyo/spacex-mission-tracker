@@ -42,7 +42,7 @@ export default function Landing() {
   };
 
   return (
-    <Container size="xs" mt="xl">
+    <Container size="xs" mt="xl" className="login-container">
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Title order={2} mb="md" align="center">
           Login
